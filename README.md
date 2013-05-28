@@ -1,4 +1,4 @@
 htmlparser
 ==========
 
-Python HTML parser
+Python Link parser
