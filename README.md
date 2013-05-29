@@ -6,7 +6,7 @@ Simple links parser using the Breadth-first search algorithm (BFS) and Beautiful
 ![Import Complete Screenshot](http://makelink.com/public_html/img/Animated_BFS.gif)
 
 - Easy for using
-- Crawls whole website to find all links
+- Crawls whole website (and even more)) to find all links
 - Restores the absolute links paths
 - Finds and marks not valid links by adding prefix "bad link" 
 - Saves all fetched data in a Database
