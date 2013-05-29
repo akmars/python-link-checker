@@ -2,13 +2,15 @@
 Simple Sitemap Generator for Python 3.x
 Uses Breadth-first search algorithm (BFS) and BeautifulSoup library
 
-Crawls whole website to find all links.
+Crawls whole website to find all links
 Finds and marks not valid links by adding prefix "bad link"
-Saves all fetched data in Database.
+Saves all fetched data in Database
 """
+
 __author__ = 'mars'
 __version__ = "0.1"
 __email__ = "marsel.akhmyednov@gmail.com"
+
 
 import config
 import re
@@ -58,25 +60,24 @@ try:
                     urlopen(result)
 
                 except BaseException:   # Marking link as bad if it wasn't processed properly
+                    result = 'bad link: ' + result
 
-                    c.execute("""INSERT IGNORE INTO %s (host, link) VALUES (%%s, %%s)""" % name,
-                              (host, 'bad link: ' + result))
-                else:
-                    c.execute("""INSERT IGNORE INTO %s (host, link) VALUES (%%s, %%s)""" % name,
-                              (host, result))
-
-                    # Working links are also adding to the queue as pages for further processing
+                else:  # Working links are also adding to the queue as pages for further processing
                     queue.append(result)
 
-                number_of_links += 1
+                c.execute("""INSERT IGNORE INTO %s (host, link) VALUES (%%s, %%s)""" % name,
+                          (host, result))
                 cnx.commit()
+
+            number_of_links += 1
+
+        # All links from the first page in the queue[] fetched
+        queue.popleft()
 
         if number_of_links > config.number_of_links or len(queue) == 0:
             print("Work's done. Number of links = %s " % number_of_links)
             break
 
-        # All links from the first page in the queue[] fetched
-        queue.popleft()
         c.execute("""SELECT id FROM %s WHERE link = %%s""" % name, (queue[0],))
         host = c.fetchone()[0]
 
