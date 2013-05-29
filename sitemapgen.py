@@ -6,11 +6,9 @@ Crawls whole website to find all links
 Finds and marks not valid links by adding prefix "bad link"
 Saves all fetched data in Database
 """
-
 __author__ = 'mars'
 __version__ = "0.1"
 __email__ = "marsel.akhmyednov@gmail.com"
-
 
 import config
 import re
@@ -69,7 +67,7 @@ try:
         cnx.commit()
         queue.popleft()
 
-        if config.number_of_pages < host + 2 or len(queue) == 0:
+        if config.number_of_pages <= host + 1 or len(queue) == 0:
             print("Work's done. Number of processed pages = %s " % (host + 1))
             break
 
