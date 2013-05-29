@@ -10,5 +10,5 @@ db = {
     'raise_on_warnings': True
 }
 
-site = 'http://www.bbc.co.uk/'
+site = ['http://www.bbc.co.uk/']
 number_of_pages = 3  # Number of processed pages
