@@ -38,11 +38,12 @@ try:
     c.execute("""CREATE TABLE %s (
            id         int         NOT NULL AUTO_INCREMENT PRIMARY KEY,
            host       int         NOT NULL,
-           link       char(255)   NOT NULL)""" % name)   # Column 'host' refers to a page id were link was found
+           link       char(255)   NOT NULL UNIQUE KEY)""" % name)
+           # Column 'host' refers to a page id were link was found
 
     # Adding url to the queue for processing
     queue = deque([config.site])
-    host = number_of_links = 0
+    host = 0
 
     while True:
 
@@ -52,30 +53,24 @@ try:
         for link in parsed_html.find_all('a'):  # Obtaining all links from current page
 
             result = urljoin(queue[0], link.get('href'))  # @var now has absolute path of a link
-            c.execute("""SELECT id FROM %s WHERE link = %%s""" % name, (result,))
 
-            if not c.fetchone():  # Adding new link to DB
+            try:
+                urlopen(result)
 
-                try:
-                    urlopen(result)
+            except Exception:   # Marking link as bad if it wasn't processed properly
+                result = 'bad link: ' + result
 
-                except BaseException:   # Marking link as bad if it wasn't processed properly
-                    result = 'bad link: ' + result
+            else:  # Working links are also adding to the queue as pages for further processing
+                queue.append(result)
 
-                else:  # Working links are also adding to the queue as pages for further processing
-                    queue.append(result)
+            c.execute("""INSERT IGNORE INTO %s (host, link) VALUES (%%s, %%s)""" % name, (host, result))
 
-                c.execute("""INSERT IGNORE INTO %s (host, link) VALUES (%%s, %%s)""" % name,
-                          (host, result))
-                cnx.commit()
-
-            number_of_links += 1
-
-        # All links from the first page in the queue[] fetched
+        # Now all links from the first page in the queue[] fetched
+        cnx.commit()
         queue.popleft()
 
-        if number_of_links > config.number_of_links or len(queue) == 0:
-            print("Work's done. Number of links = %s " % number_of_links)
+        if config.number_of_pages < host + 2 or len(queue) == 0:
+            print("Work's done. Number of processed pages = %s " % (host + 1))
             break
 
         c.execute("""SELECT id FROM %s WHERE link = %%s""" % name, (queue[0],))
