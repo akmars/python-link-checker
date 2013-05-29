@@ -7,7 +7,7 @@ db = {
     'password': '',
     'host': 'localhost',
     'database': '',
-    'raise_on_warnings': True,
+    'raise_on_warnings': True
 }
 
 site = 'http://www.bbc.co.uk/'
