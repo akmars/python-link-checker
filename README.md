@@ -8,7 +8,7 @@ Simple links parser using the Breadth-first search algorithm (BFS) and Beautiful
 - Easy for using
 - Crawls whole website (and even more)) to find all links
 - Restores the absolute links paths
-- Finds and marks not valid links by adding prefix "bad link" 
-- Saves all fetched data in a Database
+- Finds and marks not valid links
+- Saves all fetched data into a Database
 
 
