@@ -13,4 +13,4 @@ db = {
 site = 'http://www.bbc.co.uk/'
 
 number_of_links = 100000
-# Processing number of links (approximately, depends from the number of links on current page)
+# Number of tries to add new links (approximately, depends from the number of links on current page)
