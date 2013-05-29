@@ -11,6 +11,4 @@ db = {
 }
 
 site = 'http://www.bbc.co.uk/'
-
-number_of_links = 100000
-# Number of tries to add new links (approximately, depends from the number of links on current page)
+number_of_pages = 3  # Number of processed pages
