@@ -6,6 +6,7 @@ Crawls whole website to find all links
 Finds and marks not valid links by adding prefix "bad link"
 Saves all fetched data in Database
 """
+
 __author__ = 'mars'
 __version__ = "0.1"
 __email__ = "marsel.akhmyednov@gmail.com"
@@ -19,8 +20,11 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from collections import deque
 
-urlopen(config.site)
-name = re.compile(r'[/:.#]').sub('_', config.site)  # @var has transformed url to be stored as a table name
+queue = deque(config.site)  # Adding url (urls) to the queue for processing
+
+urlopen(queue[0])
+name = re.compile(r'[/:.#]').sub('_', queue[0])  # @var has transformed url to be stored as a table name
+host = 0
 
 try:
     cnx = mysql.connector.connect(**config.db)
@@ -38,10 +42,6 @@ try:
            host       int         NOT NULL,
            link       char(255)   NOT NULL UNIQUE KEY)""" % name)
            # Column 'host' refers to a page id were link was found
-
-    # Adding url to the queue for processing
-    queue = deque([config.site])
-    host = 0
 
     while True:
 
@@ -72,7 +72,8 @@ try:
             break
 
         c.execute("""SELECT id FROM %s WHERE link = %%s""" % name, (queue[0],))
-        host = c.fetchone()[0]
+        id = c.fetchone()
+        host = 0 if id is None else id[0]
 
 except mysql.connector.Error as err:
 
