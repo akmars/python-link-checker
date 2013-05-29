@@ -5,7 +5,6 @@ Uses Breadth-first search algorithm (BFS) and BeautifulSoup library
 Crawls whole website to find all links.
 Finds and marks not valid links by adding prefix "bad link"
 Saves all fetched data in Database.
-
 """
 __author__ = 'mars'
 __version__ = "0.1"
