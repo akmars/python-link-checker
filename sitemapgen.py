@@ -7,11 +7,9 @@ Finds and marks not valid links by adding prefix "bad link"
 Saves all fetched data in Database.
 
 """
-
 __author__ = 'mars'
 __version__ = "0.1"
 __email__ = "marsel.akhmyednov@gmail.com"
-
 
 import config
 import re
