@@ -1,7 +1,7 @@
-Python 3.x Simple Sitemap Generator v1.2
+Python 3.x Simple Link Checker v1.2
 ==========
 
-Simple links parser using the Breadth-first search algorithm (BFS) and BeautifulSoup library.
+Scan website using the Breadth-first search algorithm (BFS) and BeautifulSoup library.
 
 ![Import Complete Screenshot](http://makelink.com/public_html/img/Animated_BFS.gif)
 
