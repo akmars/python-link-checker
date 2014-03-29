@@ -9,7 +9,7 @@ Saves all fetched data in Database
 
 __author__ = 'mars'
 __version__ = "1.2"
-__email__ = "marsel.akhmyednov@gmail.com"
+__email__ = "marsel.novy@gmail.com"
 
 import config
 import mysql.connector
