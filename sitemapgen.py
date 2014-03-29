@@ -1,16 +1,13 @@
 """
 Simple Sitemap Generator for Python 3.x
 Uses Breadth-first search algorithm (BFS) and BeautifulSoup library
-
 Crawls whole website to find all links
 Finds and marks not valid links
 Saves all fetched data in Database
 """
-
 __author__ = 'mars'
 __version__ = "1.2"
 __email__ = "marsel.novy@gmail.com"
-
 import config
 import mysql.connector
 from urllib.parse import urljoin
@@ -20,12 +17,10 @@ from mysql.connector import errorcode
 from bs4 import BeautifulSoup
 from collections import deque
 from datetime import datetime
-
 queue = deque([config.site])  # Adding url to the queue for processing
 site = urlparse(config.site).netloc
 table_name = site.replace('.', '_')
 host = 1
-
 try:
     cnx = mysql.connector.connect(**config.db)
     c = cnx.cursor()
@@ -41,7 +36,6 @@ try:
            name       char(255)   NOT NULL,
            checked     char(32)    DEFAULT  '--')""" % table_name)  # 'host' refers to a page id were link was found
     c.execute("""INSERT INTO %s (host, link, name) VALUES (%%s, %%s, 'Start page')""" % table_name, (0, config.site))
-    
     while True:
         if queue[0].find(site) != -1:
             try:
