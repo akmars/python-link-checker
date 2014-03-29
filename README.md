@@ -1,4 +1,4 @@
-Python 3.x Simple Link Checker v1.2
+Python 3.x Simple Link Checker
 ==========
 
 Scan website using the Breadth-first search algorithm (BFS) and BeautifulSoup library.
