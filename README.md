@@ -5,9 +5,9 @@ Scan website using the Breadth-first search algorithm (BFS) and BeautifulSoup li
 
 ![Import Complete Screenshot](http://upload.wikimedia.org/wikipedia/commons/4/46/Animated_BFS.gif)
 
-- Easy for using
-- Crawls whole website to find all links
-- Restores the absolute links paths
+- Easy to use
+- Crawls a website to find all links
+- Restores an absolute link path
 - Finds and marks not valid links
 - Saves all fetched data into a Database
 
